@@ -17,12 +17,6 @@ public class SpotLightShow : MonoBehaviour
         GetComponent<Light2D>().pointLightInnerRadius = transform.GetComponentInParent<CircleCollider2D>().radius;
         GetComponent<Light2D>().pointLightOuterRadius = transform.GetComponentInParent<CircleCollider2D>().radius + 0.5f;
 
-        if (Input.GetKey(KeyCode.Space)) TurnDownTheLight(new Color(0.4f,0.4f,0.2f,1));
-        else TurnDownTheLight(new Color(0,0,0,0));
-    }
-
-    public void TurnDownTheLight(Color newColor)
-    {
-        spotLight.color = newColor;
+        spotLight.color = new Color(0.4f, 0.4f, 0.2f, 1);
     }
 }
