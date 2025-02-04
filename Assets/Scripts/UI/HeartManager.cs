@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeartManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HeartManager : MonoBehaviour
     int maxHealth = 3;
     [SerializeField] GameObject player;
     [SerializeField] List<GameObject> Hearts;
+    [SerializeField] Sprite emptyHeart;
     void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -21,7 +23,7 @@ public class HeartManager : MonoBehaviour
 
         if (health < maxHealth)
         {
-            Hearts[health].SetActive(false);
+            Hearts[health].GetComponent<Image>().sprite = emptyHeart;
         }
     }
 }

@@ -15,12 +15,14 @@ public class PatternScript : MonoBehaviour
     [SerializeField] Screenshake screenshake;
     bool hasShook;
     PlayerHealth playerHealth;
+    [SerializeField] PlayerHit hit;
     
 
     private void Start()
     {
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        hit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHit>();
         patternParts = transform.GetComponentsInChildren<PatternPart>();
     }
     // Update is called once per frame
@@ -56,6 +58,7 @@ public class PatternScript : MonoBehaviour
                 if (shouldTakeDamage)
                 {
                     playerHealth.playerHealth--;
+                    hit.currentPlayerState = PlayerHit.PlayerState.Invincible;
                 }
             }
             Destroy(gameObject);

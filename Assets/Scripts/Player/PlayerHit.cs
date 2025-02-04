@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    [SerializeField] PlayerState currentPlayerState;
-    CircleCollider2D playerCollision;
+    public PlayerState currentPlayerState;
+    BoxCollider2D playerCollision;
     SpriteRenderer playerRenderer;
     float timer = 0;
     [SerializeField] float invincibleDuration;
     void Update()
     {
-        playerCollision = GetComponent<CircleCollider2D>();
+        playerCollision = GetComponent<BoxCollider2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
 
         if(timer > invincibleDuration)
@@ -42,7 +42,7 @@ public class PlayerHit : MonoBehaviour
             transform.GetComponent<PlayerHealth>().playerHealth--;
         }
     }
-    private enum PlayerState
+    public enum PlayerState
     {
         Invincible,
         Hitable

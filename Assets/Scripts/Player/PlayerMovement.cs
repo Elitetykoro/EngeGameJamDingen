@@ -10,6 +10,14 @@ public class PlayerMovement : MonoBehaviour
     {
         playerPosition += new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0, 0) * Time.deltaTime;
         playerPosition += new Vector3(0, Input.GetAxis("Vertical") * moveSpeed, 0) * Time.deltaTime;
+        if(Input.GetAxisRaw("Horizontal") == 1)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (Input.GetAxisRaw("Horizontal") == -1)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
 
         transform.position = playerPosition;
     }
