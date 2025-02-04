@@ -34,6 +34,6 @@ public class BossDeath : MonoBehaviour
         bossAttack.enabled = false;
         transform.position = Vector3.zero;
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(3);
     }
 }
