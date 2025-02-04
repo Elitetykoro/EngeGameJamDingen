@@ -50,11 +50,12 @@ public class PatternScript : MonoBehaviour
 
         if (countTimer >= 3)
         {
-            Debug.Log("ahhhhhhhh");
+            //Debug.Log("ahhhhhhhh");
             if (!hasShook) 
             {
                 screenshake.ScreenShake(.5f, 1f, .5f);
                 hasShook = true;
+                StartCoroutine(Shock());
                 if (shouldTakeDamage)
                 {
                     playerHealth.playerHealth--;
@@ -80,5 +81,11 @@ public class PatternScript : MonoBehaviour
             }
         }
     }
-    
+    IEnumerator Shock()
+    {
+        transform.GetComponent<AudioSource>().Play();
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
 }

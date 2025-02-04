@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float dashMultiplier = 2f;
-    public float dashDuration = 0.2f;
+    public float dashDuration = 0.3f;
     private bool isDashing = false;
     private float dashTimer;
     [SerializeField]private Vector3 dashTarget;

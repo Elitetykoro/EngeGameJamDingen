@@ -45,7 +45,6 @@ public class PlayerHit : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             currentPlayerState = PlayerState.Invincible;
-            playerCollision.enabled = false;
             playSoundEffect();
             transform.GetComponent<PlayerHealth>().playerHealth--;
             Camera.main.GetComponent<Screenshake>().ScreenShake(0.01f, 0.2f, 0.08f);
