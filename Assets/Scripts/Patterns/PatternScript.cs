@@ -18,6 +18,7 @@ public class PatternScript : MonoBehaviour
     PlayerHealth playerHealth;
     [SerializeField] PlayerHit hit;
     [SerializeField]bool isTUT = false;
+    [SerializeField] BossHealthBar bossHealthBar;
     
 
     private void Start()
@@ -25,6 +26,7 @@ public class PatternScript : MonoBehaviour
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         hit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHit>();
+        bossHealthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
         patternParts = transform.GetComponentsInChildren<PatternPart>();
     }
     // Update is called once per frame
@@ -63,6 +65,10 @@ public class PatternScript : MonoBehaviour
                     playerHealth.playerHealth--;
                     hit.currentPlayerState = PlayerHit.PlayerState.Invincible;
                     hit.playSoundEffect();
+                }
+                else if (!shouldTakeDamage)
+                {
+                    bossHealthBar.bossHealth -= 20f;
                 }
             }
             Destroy(gameObject);
