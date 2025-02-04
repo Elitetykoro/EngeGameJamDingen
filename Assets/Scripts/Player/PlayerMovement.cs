@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float dashMultiplier = 2f;
-    public float dashDuration = 0.3f;
+    [SerializeField] float speed = 5f;
+    [SerializeField] float dashMultiplier = 2f;
+    [SerializeField] float dashDuration = 0.2f;
     private bool isDashing = false;
     private float dashTimer;
     [SerializeField]private Vector3 dashTarget;
     private Rigidbody2D rb;
     Animator animator;
     float horizontalMove, verticalMove;
-    [SerializeField] PlayerHit hit;
+    [SerializeField] Slider cooldownSlider;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
-        hit = GetComponent<PlayerHit>();
     }
 
     void Update()
     {
+        cooldownSlider.value = dashTimer;
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
         if(Mathf.Abs(horizontalMove) >= 0.01|| Mathf.Abs(verticalMove) >= 0.01)
@@ -36,8 +37,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         
-
-        if (Input.GetButtonDown("Dash") && !isDashing && dashTimer >= 3)
+        if(dashTimer > 3)
+        {
+            dashTimer = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
         {
             StartDash();
         }
@@ -70,14 +74,14 @@ public class PlayerMovement : MonoBehaviour
     {
         isDashing = true;
         dashTarget = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-        hit.currentPlayerState = PlayerHit.PlayerState.Dash;
+
         StartCoroutine(EndDash());
     }
 
     IEnumerator EndDash()
     {
         yield return new WaitForSeconds(dashDuration);
-        dashTimer = 0; 
+        dashTimer = 0;
         isDashing = false;
     }
 
