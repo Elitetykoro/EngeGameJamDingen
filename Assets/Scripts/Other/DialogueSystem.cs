@@ -12,10 +12,6 @@ public class DialogueSystem : MonoBehaviour
     private float timer = 0;
     private string textDialogue = "";
     float timeBetweenCharaters;
-    void Start()
-    {
-        
-    }
     public void Dialogue(string text, float timeBetweenChar) // Function for use the dialogue 
     {
         dialogueText.text = "";
