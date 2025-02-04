@@ -34,6 +34,12 @@ public class PlayerHit : MonoBehaviour
                     playerRenderer.color = new Color(playerRenderer.color.r, playerRenderer.color.g, playerRenderer.color.b, playerRenderer.color.a - (Time.deltaTime * 5));
                     if (playerRenderer.color.a <= 0) playerRenderer.color = new Color(playerRenderer.color.r, playerRenderer.color.g, playerRenderer.color.b, 1);
                     break;
+            case PlayerState.Dash:
+                timer += Time.deltaTime;
+                playerCollision.enabled = false;
+                //playerRenderer.color = new Color(playerRenderer.color.r, playerRenderer.color.g, playerRenderer.color.b, playerRenderer.color.a - (Time.deltaTime * 5));
+                //if (playerRenderer.color.a <= 0) playerRenderer.color = new Color(playerRenderer.color.r, playerRenderer.color.g, playerRenderer.color.b, 1);
+                break;
             case PlayerState.Hitable:
                 playerCollision.enabled = true;
                 playerRenderer.color = new Color(1,1,1,1);
@@ -48,6 +54,7 @@ public class PlayerHit : MonoBehaviour
             playSoundEffect();
             transform.GetComponent<PlayerHealth>().playerHealth--;
             Camera.main.GetComponent<Screenshake>().ScreenShake(0.01f, 0.2f, 0.08f);
+            Debug.Log("hit");
         }
     }
     public void playSoundEffect()
@@ -58,6 +65,7 @@ public class PlayerHit : MonoBehaviour
     public enum PlayerState
     {
         Invincible,
+        Dash,
         Hitable
     }
 }

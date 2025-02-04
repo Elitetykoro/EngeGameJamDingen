@@ -1542,8 +1542,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   dashMultiplier: 2
-  dashDuration: 0.2
+  dashDuration: 0.4
   dashTarget: {x: 0, y: 0, z: 0}
+  hit: {fileID: 0}
 --- !u!212 &2127067672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1663,7 +1664,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &2127067678
 BoxCollider2D:

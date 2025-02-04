@@ -13,12 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     Animator animator;
     float horizontalMove, verticalMove;
+    [SerializeField] PlayerHit hit;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
+        hit = GetComponent<PlayerHit>();
     }
 
     void Update()
@@ -67,9 +69,8 @@ public class PlayerMovement : MonoBehaviour
     void StartDash()
     {
         isDashing = true;
-        transform.GetComponent<BoxCollider2D>().enabled = false;
         dashTarget = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-
+        hit.currentPlayerState = PlayerHit.PlayerState.Dash;
         StartCoroutine(EndDash());
     }
 
@@ -77,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         dashTimer = 0; 
-        transform.GetComponent<BoxCollider2D>().enabled = true;
         isDashing = false;
     }
 
