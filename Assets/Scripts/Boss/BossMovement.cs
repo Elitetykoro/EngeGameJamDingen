@@ -11,27 +11,51 @@ public class BossMovement : MonoBehaviour
     [SerializeField] float minDistance;
 
     Vector3 bossPosition;
+
+    [SerializeField] public BossState currentBossState;
     private void Start()
     {
         bossPosition = transform.position;
     }
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, player.position - transform.position);
-        transform.position = bossPosition;
-        distance = (bossPosition - player.position).magnitude;
-        
-        if(distance > maxDistance)
+        switch (currentBossState)
         {
-            bossPosition += (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
+            case BossState.MoveAroundPlayer:
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, player.position - transform.position);
+                transform.position = bossPosition;
+                distance = (bossPosition - player.position).magnitude;
+
+                if (distance > maxDistance)
+                {
+                    bossPosition += (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
+                }
+                else if (distance < minDistance)
+                {
+                    bossPosition -= (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
+                }
+                if (distance >= minDistance && distance <= maxDistance)
+                {
+                    bossPosition += transform.right * (moveSpeed / 4) * Time.deltaTime;
+                }
+                break;
+            case BossState.RunAwayFromPlayer:
+                transform.position = bossPosition;
+                bossPosition -= (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
+                break;
+            case BossState.GoToPlayer:
+                transform.position = bossPosition;
+                bossPosition += (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
+                break;
         }
-        else if (distance < minDistance)
-        {
-            bossPosition -= (player.position - transform.position).normalized * moveSpeed * Time.deltaTime;
-        }
-        if (distance >= minDistance && distance <= maxDistance)
-        {
-            bossPosition += transform.right * (moveSpeed/4) * Time.deltaTime;
-        }
+
+
     }
+    
+}
+public enum BossState
+{
+    MoveAroundPlayer,
+    RunAwayFromPlayer,
+    GoToPlayer
 }

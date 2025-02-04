@@ -13,9 +13,12 @@ public class BossAttack : MonoBehaviour
     [SerializeField] float maxAttackTime = 3;
 
     [SerializeField] int randomAttack;
+
+    BossState activeBossState;
     private void Start()
     {
         randomAttack = 1;
+        activeBossState = GetComponent<BossMovement>().currentBossState;
     }
     void Update()
     {
@@ -49,10 +52,12 @@ public class BossAttack : MonoBehaviour
     }
     IEnumerator TripleBulletAttack()
     {
+        activeBossState = BossState.RunAwayFromPlayer;
         Instantiate(bossBullet,firePoint1.position,transform.rotation);
         Instantiate(bossBullet, firePoint2.position, transform.rotation);
         Instantiate(bossBullet, firePoint3.position, transform.rotation);
-        yield return null;
+        yield return new WaitForSeconds(1f);
+        activeBossState = BossState.MoveAroundPlayer;
     }
     IEnumerator BulletAttackAfterTime()
     {
