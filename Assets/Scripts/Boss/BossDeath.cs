@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +9,8 @@ public class BossDeath : MonoBehaviour
     [SerializeField] BossHealthBar bossHealth;
     [SerializeField] BossMovement bossMovement;
     [SerializeField] BossAttack bossAttack;
-    AudioSource audioSource;
     [SerializeField] AudioClip monsterScream;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -22,14 +23,16 @@ public class BossDeath : MonoBehaviour
     {
         if (bossHealth.bossHealth <= 0)
         {
-            audioSource.PlayOneShot(monsterScream);
             StartCoroutine(GoToWinScreen());
+            transform.Rotate(0, 0, 580 * Time.deltaTime);
         }
     }
     IEnumerator GoToWinScreen()
     {
+        audioSource.PlayOneShot(monsterScream);
         bossMovement.enabled = false;
         bossAttack.enabled = false;
+        transform.position = Vector3.zero;
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(0);
     }

@@ -1493,9 +1493,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHealth: {fileID: 1597904408}
-  bossMovement: {fileID: 0}
-  bossAttack: {fileID: 0}
+  bossMovement: {fileID: 1555885813}
+  bossAttack: {fileID: 1555885814}
   monsterScream: {fileID: 8300000, guid: 3024c4b20e2d1ea40987b3f2f201a2ab, type: 3}
+  animator: {fileID: 0}
 --- !u!1 &1597904406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,7 +1839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844748993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1018095, y: 1.924996, z: -0.080871925}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1984,7 +1985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127067670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 0.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
