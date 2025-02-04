@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
+        if (Input.GetButtonDown("Dash") && !isDashing && dashTimer >= 3)
         {
             StartDash();
         }
@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     void StartDash()
     {
         isDashing = true;
+        transform.GetComponent<BoxCollider2D>().enabled = false;
         dashTarget = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
 
         StartCoroutine(EndDash());
@@ -75,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator EndDash()
     {
         yield return new WaitForSeconds(dashDuration);
-        dashTimer = 0;
+        dashTimer = 0; 
+        transform.GetComponent<BoxCollider2D>().enabled = true;
         isDashing = false;
     }
 

@@ -9,6 +9,12 @@ public class PlayerHit : MonoBehaviour
     SpriteRenderer playerRenderer;
     float timer = 0;
     [SerializeField] float invincibleDuration;
+    [SerializeField] List<AudioClip> audioClips;
+    AudioSource audioSource;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         playerCollision = GetComponent<BoxCollider2D>();
@@ -39,8 +45,16 @@ public class PlayerHit : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             currentPlayerState = PlayerState.Invincible;
+            playerCollision.enabled = false;
+            playSoundEffect();
             transform.GetComponent<PlayerHealth>().playerHealth--;
+            Camera.main.GetComponent<Screenshake>().ScreenShake(0.01f, 0.2f, 0.08f);
         }
+    }
+    public void playSoundEffect()
+    {
+        audioSource.clip = audioClips[Random.Range(1, 4)];
+        audioSource.Play();
     }
     public enum PlayerState
     {

@@ -53,12 +53,13 @@ public class PatternScript : MonoBehaviour
             Debug.Log("ahhhhhhhh");
             if (!hasShook) 
             {
-                screenshake.ScreenShake(0.01f, 0.2f, 0.08f);
+                screenshake.ScreenShake(.5f, 1f, .5f);
                 hasShook = true;
                 if (shouldTakeDamage)
                 {
                     playerHealth.playerHealth--;
                     hit.currentPlayerState = PlayerHit.PlayerState.Invincible;
+                    hit.playSoundEffect();
                 }
             }
             Destroy(gameObject);
