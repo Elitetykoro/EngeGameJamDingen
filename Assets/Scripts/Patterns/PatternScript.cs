@@ -55,7 +55,7 @@ public class PatternScript : MonoBehaviour
                 hasShook = true;
                 if (shouldTakeDamage)
                 {
-                    playerHealth.health--;
+                    playerHealth.playerHealth--;
                 }
             }
             Destroy(gameObject);
