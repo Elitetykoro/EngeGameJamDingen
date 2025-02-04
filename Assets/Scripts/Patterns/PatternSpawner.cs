@@ -8,6 +8,7 @@ public class PatternSpawner : MonoBehaviour
     float timer, difficultyTimer;
     float previousRandomPattern;
     bool stage1, stage2;
+    [SerializeField] bool isInClassic;
     [SerializeField] float timeBetweenPatterns;
     [SerializeField] GameObject[] patterns;
 
@@ -24,7 +25,9 @@ public class PatternSpawner : MonoBehaviour
             {
                 randomPattern = UnityEngine.Random.Range(0, patterns.Length - 1);
             }
-            Instantiate(patterns[(int)randomPattern]);
+            GameObject patternToSpawn = Instantiate(patterns[(int)randomPattern]);
+            if(isInClassic)patternToSpawn.GetComponent<PatternScript>().isClassic = true;
+            if(!isInClassic)patternToSpawn.GetComponent<PatternScript>().isClassic = false;
             previousRandomPattern = randomPattern;
         }
         if(difficultyTimer >= 90&&!stage1&&!stage2||difficultyTimer >= 120 && stage1 && !stage2)

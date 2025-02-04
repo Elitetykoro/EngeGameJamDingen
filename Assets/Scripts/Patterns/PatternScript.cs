@@ -14,6 +14,7 @@ public class PatternScript : MonoBehaviour
     [SerializeField] float lightFloat;
     [SerializeField] tutorial tutScript;
     [SerializeField] Screenshake screenshake;
+    public bool isClassic;
     bool hasShook;
     [SerializeField] float damageTime = 3;
     PlayerHealth playerHealth;
@@ -26,13 +27,13 @@ public class PatternScript : MonoBehaviour
 
     private void Start()
     {
-
-        bossSound = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<AudioSource>();
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         hit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHit>();
-        bossHealthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
         patternParts = transform.GetComponentsInChildren<PatternPart>();
+        bossSound = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<AudioSource>();
+        if(isClassic)bossHealthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
+        
     }
     // Update is called once per frame
     void Update()
@@ -76,7 +77,7 @@ public class PatternScript : MonoBehaviour
                 }
                 else if (!shouldTakeDamage)
                 {
-                    bossHealthBar.bossHealth -= 20f;
+                    if(isClassic)bossHealthBar.bossHealth -= 20f;
                 }
             }
             Destroy(gameObject);
