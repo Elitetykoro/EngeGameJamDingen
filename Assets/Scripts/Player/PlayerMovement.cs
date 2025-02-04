@@ -6,19 +6,21 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float dashMultiplier = 2f;
-    public float dashDuration = 0.5f;
+    public float dashDuration = 0.2f;
     private bool isDashing = false;
+    private float dashTimer;
     [SerializeField]private Vector3 dashTarget;
     private Rigidbody2D rb;
 
     void Start()
     {
+        dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Dash") && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
         {
             StartDash();
         }
@@ -33,23 +35,25 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            dashTimer += Time.deltaTime;
             HandleMovement();
         }
-        dashTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0,0,10);
+        //dashTarget = ;
         
     }
 
     void StartDash()
     {
         isDashing = true;
-        ;
-         // Ensure the player doesn't move on the Z-axis
+        dashTarget = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+
         StartCoroutine(EndDash());
     }
 
     IEnumerator EndDash()
     {
         yield return new WaitForSeconds(dashDuration);
+        dashTimer = 0;
         isDashing = false;
     }
 

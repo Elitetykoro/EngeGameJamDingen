@@ -21,7 +21,7 @@ public class HeartManager : MonoBehaviour
     {
         health = player.GetComponent<PlayerHealth>().playerHealth;
 
-        if (health < maxHealth)
+        if (health < maxHealth && health >= 0)
         {
             Hearts[health].GetComponent<Image>().sprite = emptyHeart;
         }
