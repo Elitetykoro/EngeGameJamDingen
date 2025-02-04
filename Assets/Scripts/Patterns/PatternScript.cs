@@ -15,12 +15,14 @@ public class PatternScript : MonoBehaviour
     [SerializeField] Screenshake screenshake;
     bool hasShook;
     PlayerHealth playerHealth;
+    [SerializeField] PlayerHit hit;
     
 
     private void Start()
     {
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        hit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHit>();
         patternParts = transform.GetComponentsInChildren<PatternPart>();
     }
     // Update is called once per frame
@@ -48,14 +50,17 @@ public class PatternScript : MonoBehaviour
 
         if (countTimer >= 3)
         {
-            Debug.Log("ahhhhhhhh");
+            //Debug.Log("ahhhhhhhh");
             if (!hasShook) 
             {
-                screenshake.ScreenShake(0.01f, 0.2f, 0.08f);
+                screenshake.ScreenShake(.5f, 1f, .5f);
                 hasShook = true;
+                StartCoroutine(Shock());
                 if (shouldTakeDamage)
                 {
-                    playerHealth.health--;
+                    playerHealth.playerHealth--;
+                    hit.currentPlayerState = PlayerHit.PlayerState.Invincible;
+                    hit.playSoundEffect();
                 }
             }
             Destroy(gameObject);
@@ -76,5 +81,11 @@ public class PatternScript : MonoBehaviour
             }
         }
     }
-    
+    IEnumerator Shock()
+    {
+        transform.GetComponent<AudioSource>().Play();
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
 }
