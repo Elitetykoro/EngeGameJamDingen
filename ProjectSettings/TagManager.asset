@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - BossHealthBar
+  - SoundManager
   layers:
   - Default
   - TransparentFX

@@ -17,11 +17,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Slider cooldownSlider;
     Vector3 playerPosition;
     PlayerHit hit;
+    AudioSource audioSource;
+    [SerializeField] AudioClip dashCharge;
+    bool hasPlayed = false;
+    
 
     void Start()
     {
         hit = GetComponent<PlayerHit>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -31,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = playerPosition;
         playerPosition.x = Mathf.Clamp(transform.position.x, -9, 9);
         playerPosition.y = Mathf.Clamp(transform.position.y, -5, 5);
+        
 
         cooldownSlider.value = dashTimer;
         horizontalMove = Input.GetAxisRaw("Horizontal");
@@ -47,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
         if(dashTimer > 3)
         {
             dashTimer = 3;
+            if (!hasPlayed)
+            {
+                audioSource.PlayOneShot(dashCharge);
+                hasPlayed = true;
+            }
         }
         if (Input.GetButtonDown("Dash") && !isDashing && dashTimer >= 3)
         {
@@ -66,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing)
         {
             float step = speed * dashMultiplier * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, dashTarget, step);
+            playerPosition = Vector3.MoveTowards(transform.position, dashTarget, step);
         }
         else
         {
@@ -89,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         dashTimer = 0;
+        hasPlayed = false;
         isDashing = false;
     }
 

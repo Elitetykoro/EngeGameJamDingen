@@ -19,10 +19,14 @@ public class PatternScript : MonoBehaviour
     [SerializeField] PlayerHit hit;
     [SerializeField]bool isTUT = false;
     [SerializeField] BossHealthBar bossHealthBar;
-    
+    [SerializeField] AudioClip bossRoar;
+    AudioSource bossSound;
+
 
     private void Start()
     {
+
+        bossSound = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<AudioSource>();
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         hit = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHit>();
@@ -54,12 +58,11 @@ public class PatternScript : MonoBehaviour
 
         if (countTimer >= damageTime)
         {
-            //Debug.Log("ahhhhhhhh");
             if (!hasShook) 
             {
                 screenshake.ScreenShake(.5f, 1f, .5f);
                 hasShook = true;
-                StartCoroutine(Shock());
+                bossSound.PlayOneShot(bossRoar);
                 if (shouldTakeDamage)
                 {
                     playerHealth.playerHealth--;
@@ -136,12 +139,6 @@ public class PatternScript : MonoBehaviour
                 }
             }
         }
-    }
-    IEnumerator Shock()
-    {
-        transform.GetComponent<AudioSource>().Play();
-
-        yield return new WaitForSeconds(0.5f);
     }
 
 }
