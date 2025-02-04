@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float dashMultiplier = 2f;
-    public float dashDuration = 0.2f;
+    [SerializeField] float speed = 5f;
+    [SerializeField] float dashMultiplier = 2f;
+    [SerializeField] float dashDuration = 0.2f;
     private bool isDashing = false;
     private float dashTimer;
     [SerializeField]private Vector3 dashTarget;
     private Rigidbody2D rb;
     Animator animator;
     float horizontalMove, verticalMove;
+    [SerializeField] Slider cooldownSlider;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        cooldownSlider.value = dashTimer;
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
         if(Mathf.Abs(horizontalMove) >= 0.01|| Mathf.Abs(verticalMove) >= 0.01)
@@ -34,7 +37,10 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         
-
+        if(dashTimer > 3)
+        {
+            dashTimer = 3;
+        }
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
         {
             StartDash();

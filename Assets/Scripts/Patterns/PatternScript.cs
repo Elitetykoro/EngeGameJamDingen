@@ -50,7 +50,7 @@ public class PatternScript : MonoBehaviour
 
         if (countTimer >= 3)
         {
-            Debug.Log("ahhhhhhhh");
+            
             if (!hasShook) 
             {
                 screenshake.ScreenShake(0.01f, 0.2f, 0.08f);
