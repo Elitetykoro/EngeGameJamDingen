@@ -11,18 +11,40 @@ public class PlayerMovement : MonoBehaviour
     private float dashTimer;
     [SerializeField]private Vector3 dashTarget;
     private Rigidbody2D rb;
+    Animator animator;
+    float horizontalMove, verticalMove;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        horizontalMove = Input.GetAxisRaw("Horizontal");
+        verticalMove = Input.GetAxisRaw("Vertical");
+        if(Mathf.Abs(horizontalMove) >= 0.01|| Mathf.Abs(verticalMove) >= 0.01)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        
+
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
         {
             StartDash();
+        }
+        if(horizontalMove >= 0.001)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }else if(horizontalMove <= -0.001)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 
