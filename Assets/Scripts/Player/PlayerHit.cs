@@ -39,6 +39,7 @@ public class PlayerHit : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             currentPlayerState = PlayerState.Invincible;
+            transform.GetComponent<PlayerHealth>().playerHealth--;
         }
     }
     private enum PlayerState

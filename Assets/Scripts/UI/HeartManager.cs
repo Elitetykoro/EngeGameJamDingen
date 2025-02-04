@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class HeartManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] int health;
+    int maxHealth = 3;
+    [SerializeField] GameObject player;
+    [SerializeField] List<GameObject> Hearts;
     void Start()
     {
-        
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Hearts.Add(transform.GetChild(i).gameObject);
+        }
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        health = player.GetComponent<PlayerHealth>().playerHealth;
+
+        if (health < maxHealth)
+        {
+            Hearts[health].SetActive(false);
+        }
     }
 }
