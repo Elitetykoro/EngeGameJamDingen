@@ -12,6 +12,7 @@ public class PatternScript : MonoBehaviour
     float countTimer;
     [SerializeField]float duration;
     [SerializeField] float lightFloat;
+    [SerializeField] tutorial tutScript;
     [SerializeField] Screenshake screenshake;
     bool hasShook;
     [SerializeField] float damageTime = 3;
@@ -55,6 +56,10 @@ public class PatternScript : MonoBehaviour
             //Debug.Log("ahhhhhhhh");
             if (!hasShook) 
             {
+                if (isTUT)
+                {
+                    tutScript.hasSurvivedRoar = true;
+                }
                 screenshake.ScreenShake(.5f, 1f, .5f);
                 hasShook = true;
                 StartCoroutine(Shock());

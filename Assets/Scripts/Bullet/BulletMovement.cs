@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
+    public float moveSpeed;
     void Update()
     {
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
