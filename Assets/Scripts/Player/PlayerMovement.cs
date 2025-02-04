@@ -15,9 +15,11 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     float horizontalMove, verticalMove;
     [SerializeField] Slider cooldownSlider;
+    PlayerHit hit;
 
     void Start()
     {
+        hit = GetComponent<PlayerHit>();
         animator = GetComponent<Animator>();
         dashTimer = 0;
         rb = GetComponent<Rigidbody2D>();
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             dashTimer = 3;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer >= 3)
+        if (Input.GetButtonDown("Dash") && !isDashing && dashTimer >= 3)
         {
             StartDash();
         }
@@ -66,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             dashTimer += Time.deltaTime;
             HandleMovement();
         }
-        //dashTarget = ;
+        
         
     }
 
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isDashing = true;
         dashTarget = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-
+        hit.currentPlayerState = PlayerHit.PlayerState.Dash;
         StartCoroutine(EndDash());
     }
 
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveX, moveY) * speed * Time.deltaTime;
-        rb.MovePosition(rb.position + movement);
+        Vector2 movement = new Vector2(moveX, moveY);
+        transform.position += new Vector3(movement.x, movement.y, 0) * speed * Time.deltaTime;
     }
 }

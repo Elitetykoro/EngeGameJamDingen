@@ -14,8 +14,10 @@ public class PatternScript : MonoBehaviour
     [SerializeField] float lightFloat;
     [SerializeField] Screenshake screenshake;
     bool hasShook;
+    [SerializeField] float damageTime = 3;
     PlayerHealth playerHealth;
     [SerializeField] PlayerHit hit;
+    [SerializeField]bool isTUT = false;
     
 
     private void Start()
@@ -48,7 +50,7 @@ public class PatternScript : MonoBehaviour
                 partLight.pointLightInnerRadius = lightFloat;
             }
 
-        if (countTimer >= 3)
+        if (countTimer >= damageTime)
         {
             //Debug.Log("ahhhhhhhh");
             if (!hasShook) 
@@ -65,19 +67,67 @@ public class PatternScript : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        for (int i = 0; i < patternParts.Length; i++)
+        if (!isTUT)
         {
-            if (countTimer <= 1)
+            for (int i = 0; i < patternParts.Length; i++)
             {
-                patternParts[i].countdownText.text = "3";
+                if (countTimer <= 1)
+                {
+                    patternParts[i].countdownText.text = "3";
+                }
+                else if (countTimer <= 2 && countTimer >= 1)
+                {
+                    patternParts[i].countdownText.text = "2";
+                }
+                else if (countTimer <= 3 && countTimer >= 2)
+                {
+                    patternParts[i].countdownText.text = "1";
+                }
             }
-            else if (countTimer <= 2 && countTimer >= 1)
+        }
+        if (isTUT)
+        {
+            for (int i = 0; i < patternParts.Length; i++)
             {
-                patternParts[i].countdownText.text = "2";
-            }
-            else if (countTimer <= 3 && countTimer >= 2)
-            {
-                patternParts[i].countdownText.text = "1";
+                if (countTimer <= 1)
+                {
+                    patternParts[i].countdownText.text = "10";
+                }
+                else if (countTimer <= 2 && countTimer >= 1)
+                {
+                    patternParts[i].countdownText.text = "9";
+                }
+                else if (countTimer <= 3 && countTimer >= 2)
+                {
+                    patternParts[i].countdownText.text = "8";
+                }
+                else if (countTimer <= 4 && countTimer >= 3)
+                {
+                    patternParts[i].countdownText.text = "7";
+                }
+                else if (countTimer <= 5 && countTimer >= 4)
+                {
+                    patternParts[i].countdownText.text = "6";
+                }
+                else if (countTimer <= 6 && countTimer >= 5)
+                {
+                    patternParts[i].countdownText.text = "5";
+                }
+                else if (countTimer <= 7 && countTimer >= 6)
+                {
+                    patternParts[i].countdownText.text = "4";
+                }
+                else if (countTimer <= 8 && countTimer >= 7)
+                {
+                    patternParts[i].countdownText.text = "3";
+                }
+                else if (countTimer <= 9 && countTimer >= 8)
+                {
+                    patternParts[i].countdownText.text = "2";
+                }else if (countTimer <= 10 && countTimer >= 9)
+                {
+                    patternParts[i].countdownText.text = "1";
+                }
             }
         }
     }
