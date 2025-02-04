@@ -4,21 +4,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth;
-    public int health;
-    private void Start()
+    public int playerHealth = 3;
+    public void TakeDamage()
     {
-        health = maxHealth;
-    }
-    private void Update()
-    {
-        if (health <= 0)
-        {
-            Death();
-        }
-    }
-    public void Death()
-    {
-        Debug.LogError("you deadass dead asf");
+        playerHealth--;
     }
 }
