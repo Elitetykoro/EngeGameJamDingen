@@ -13,7 +13,7 @@ public class PatternSpawner : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(patterns.Length);
+        
         timer += Time.deltaTime;
         difficultyTimer += Time.deltaTime;
         if (timer > timeBetweenPatterns)

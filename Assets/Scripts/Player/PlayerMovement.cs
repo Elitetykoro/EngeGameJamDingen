@@ -4,21 +4,60 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 playerPosition;
-    [SerializeField] float moveSpeed;
+    public float speed = 5f;
+    public float dashMultiplier = 2f;
+    public float dashDuration = 0.5f;
+    private bool isDashing = false;
+    [SerializeField]private Vector3 dashTarget;
+    private Rigidbody2D rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
-        playerPosition += new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0, 0) * Time.deltaTime;
-        playerPosition += new Vector3(0, Input.GetAxis("Vertical") * moveSpeed, 0) * Time.deltaTime;
-        if(Input.GetAxisRaw("Horizontal") == 1)
+        if (Input.GetButtonDown("Dash") && !isDashing)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            StartDash();
         }
-        else if (Input.GetAxisRaw("Horizontal") == -1)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
+    }
 
-        transform.position = playerPosition;
+    void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            float step = speed * dashMultiplier * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, dashTarget, step);
+        }
+        else
+        {
+            HandleMovement();
+        }
+        dashTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0,0,10);
+        
+    }
+
+    void StartDash()
+    {
+        isDashing = true;
+        ;
+         // Ensure the player doesn't move on the Z-axis
+        StartCoroutine(EndDash());
+    }
+
+    IEnumerator EndDash()
+    {
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+    }
+
+    void HandleMovement()
+    {
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
+        Vector2 movement = new Vector2(moveX, moveY) * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + movement);
     }
 }
