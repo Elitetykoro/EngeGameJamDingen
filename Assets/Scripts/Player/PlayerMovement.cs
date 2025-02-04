@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     float horizontalMove, verticalMove;
     [SerializeField] Slider cooldownSlider;
+    Vector3 playerPosition;
     PlayerHit hit;
 
     void Start()
@@ -27,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        transform.position = playerPosition;
+        playerPosition.x = Mathf.Clamp(transform.position.x, -9, 9);
+        playerPosition.y = Mathf.Clamp(transform.position.y, -5, 5);
+
         cooldownSlider.value = dashTimer;
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
@@ -92,6 +97,6 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveX, moveY);
-        transform.position += new Vector3(movement.x, movement.y, 0) * speed * Time.deltaTime;
+        playerPosition += new Vector3(movement.x, movement.y, 0) * speed * Time.deltaTime;
     }
 }
