@@ -18,9 +18,9 @@ public class PatternScript : MonoBehaviour
     
 
     private void Start()
-    { 
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+    {
         screenshake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Screenshake>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         patternParts = transform.GetComponentsInChildren<PatternPart>();
     }
     // Update is called once per frame
