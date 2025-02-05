@@ -740,6 +740,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8925129790366769221, guid: ce62b0a0458724c4383a4d0e64aa4056, type: 3}
+      propertyPath: bossRoar
+      value: 
+      objectReference: {fileID: 8300000, guid: 837288048731e5d4b8c2c7d1538dc552, type: 3}
+    - target: {fileID: 8925129790366769221, guid: ce62b0a0458724c4383a4d0e64aa4056, type: 3}
       propertyPath: isClassic
       value: 0
       objectReference: {fileID: 0}

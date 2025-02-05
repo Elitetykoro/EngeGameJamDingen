@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +33,6 @@ public class BossDeath : MonoBehaviour
         bossAttack.enabled = false;
         transform.position = Vector3.zero;
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 }

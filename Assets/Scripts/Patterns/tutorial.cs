@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class tutorial : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class tutorial : MonoBehaviour
         }
         else
         {
-            doTutorial = true;
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -39,7 +40,7 @@ public class tutorial : MonoBehaviour
             {
                 timer += Time.deltaTime;
             }
-            if(!d1)dialogueSystem.Dialogue("Use WASD to move", 0.1f); d1 = true;
+            if (!d1) dialogueSystem.Dialogue("Use WASD to move", 0.1f); d1 = true;
             if (timer >= 1.6f && !state1 && !state2 && !state3)
             {
                 timer = 0;
@@ -90,11 +91,18 @@ public class tutorial : MonoBehaviour
             }
             if (hasSurvivedRoar)
             {
+                Debug.Log(timer);
                 start = true;
-                if (!d7) dialogueSystem.Dialogue("Goodluck...", 0.5f); d7 = true;
-                if (timer >= 10 && !final && state2 && state1 && state3)
+                if (!d7)
+                {
+                    timer = 0;
+                    dialogueSystem.Dialogue("Goodluck...", 0.5f);
+                    d7 = true;
+                }
+                if (timer >= 5 && !final && state2 && state1 && state3)
                 {
                     PlayerPrefs.SetFloat("hasDoneTutorial", 1f);
+                    SceneManager.LoadScene(1);
                 }
             }
         }

@@ -7,11 +7,11 @@ public class Scene : MonoBehaviour
 {
     public void SwitchSceneClassic()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     public void SwitchSceneEndless()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
     public void ExitGame()
     {
